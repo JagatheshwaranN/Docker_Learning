@@ -1,0 +1,8 @@
+services:
+  nginx:
+    image: nginx:latest
+  alpine:
+    image: alpine:latest
+    entrypoint: "ping nginx"
+    depends_on:
+      - nginx

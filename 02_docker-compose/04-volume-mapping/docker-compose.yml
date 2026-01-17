@@ -1,0 +1,11 @@
+services:
+  nginx:
+    image: nginx:latest
+  alpine:
+    image: alpine:latest
+    entrypoint: "wget http://nginx"
+    depends_on:
+      - nginx
+    working_dir: /data/store
+    volumes:
+      - ./data:/data/store

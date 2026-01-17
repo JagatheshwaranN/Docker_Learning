@@ -1,0 +1,5 @@
+services:
+  welcome:
+    image: vinsdocker/sel-app:${VERSION}
+    ports:
+      - "${PORT}:80"    

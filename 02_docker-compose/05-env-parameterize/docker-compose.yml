@@ -1,0 +1,7 @@
+services:
+  welcome:
+    image: jagatheshwarann/welcome:latest
+    environment:
+    #- NAME=${NAME}
+    #- NAME=${NAME:-Guest}
+    - NAME

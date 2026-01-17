@@ -1,0 +1,4 @@
+services:
+  alpine:
+    image: alpine:latest
+    entrypoint: "ping nginx"
