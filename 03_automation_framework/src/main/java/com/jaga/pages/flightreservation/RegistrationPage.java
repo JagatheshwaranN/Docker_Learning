@@ -46,6 +46,10 @@ public class RegistrationPage  extends AbstractPage {
         return this.firstNameInput.isDisplayed();
     }
 
+    public void goTo(String url) {
+        this.driver.get(url);
+    }
+
     public void enterUserDetails(String firstname, String lastname) {
         this.firstNameInput.sendKeys(firstname);
         this.lastNameInput.sendKeys(lastname);

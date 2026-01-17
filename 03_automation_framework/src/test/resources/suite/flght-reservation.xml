@@ -1,0 +1,16 @@
+<suite name="Flight Reservation Suite">
+    <test name="Passenger Count 1">
+        <parameter name="noOfPassengers" value="1"/>
+        <parameter name="expectedPrice" value="$584 USD"/>
+        <classes>
+            <class name="com.jaga.flightreservation.FlightReservationTest" />
+        </classes>
+    </test>
+    <test name="Passenger Count 2">
+        <parameter name="noOfPassengers" value="2"/>
+        <parameter name="expectedPrice" value="$1169 USD"/>
+        <classes>
+            <class name="com.jaga.flightreservation.FlightReservationTest" />
+        </classes>
+    </test>
+</suite>
