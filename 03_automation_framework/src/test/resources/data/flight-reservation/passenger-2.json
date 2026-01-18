@@ -1,0 +1,25 @@
+{
+  "parameters": {
+    "noOfPassengers": "2",
+    "expectedPrice": "$1169 USD"
+  },
+  "userRegistration": {
+    "firstName": "Automation",
+    "lastName": "Docker",
+    "email": "automation@docker.com",
+    "password": "docker",
+    "address": {
+      "street": "123 Street",
+      "city": "Atlanta",
+      "state": "Alaska",
+      "zipCode": "30001"
+    }
+  },
+  "flightSearch": {
+    "departure": "London",
+    "arrival": "Seattle"
+  },
+  "application": {
+    "url": "https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/reservation-app/index.html"
+  }
+}

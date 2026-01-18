@@ -1,37 +1,34 @@
-package com.jaga.flightreservation;
+package com.jaga.test.flightreservation;
 
+import com.jaga.test.AbstractTest;
 import com.jaga.pages.flightreservation.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.jaga.test.flightreservation.model.FlightReservationTestData;
+import com.jaga.util.JsonUtil;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class FlightReservationTest {
+public class FlightReservationTest extends AbstractTest {
 
-    private WebDriver driver;
-    private String noOfPassengers;
-    private String expectedPrice;
+    private FlightReservationTestData testData;
 
     @BeforeTest
-    @Parameters({"noOfPassengers", "expectedPrice"})
-    public void setDriver(String noOfPassengers, String expectedPrice) {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        this.noOfPassengers = noOfPassengers;
-        this.expectedPrice = expectedPrice;
+    @Parameters({"testDataPath"})
+    public void setParameters(String path) {
+        this.testData = JsonUtil.getTestData(path, FlightReservationTestData.class);
     }
 
     @Test
     public void userRegistrationTest() {
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.goTo("https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/reservation-app/index.html");
+        registrationPage.goTo(testData.application().url());
         Assert.assertTrue(registrationPage.isAt());
-        registrationPage.enterUserDetails("Automation", "Docker");
-        registrationPage.enterUserCredentials("automation@docker.com", "docker");
-        registrationPage.enterUserAddress("123 Street", "Atlanta", "Alaska", "30001");
+        registrationPage.enterUserDetails(testData.userRegistration().firstName(), testData.userRegistration().lastName());
+        registrationPage.enterUserCredentials(testData.userRegistration().email(), testData.userRegistration().password());
+        registrationPage.enterUserAddress(testData.userRegistration().address().street(),
+                testData.userRegistration().address().city(), testData.userRegistration().address().state(),
+                testData.userRegistration().address().zipCode());
         registrationPage.register();
     }
 
@@ -46,8 +43,8 @@ public class FlightReservationTest {
     public void flightsSearchTest() {
         FlightsSearchPage flightsSearchPage = new FlightsSearchPage(driver);
         Assert.assertTrue(flightsSearchPage.isAt());
-        flightsSearchPage.selectPassengers(noOfPassengers);
-        flightsSearchPage.selectDepartureAndArrival("London", "Seattle");
+        flightsSearchPage.selectPassengers(testData.parameters().noOfPassengers());
+        flightsSearchPage.selectDepartureAndArrival(testData.flightSearch().departure(), testData.flightSearch().arrival());
         flightsSearchPage.searchFlights();
     }
 
@@ -64,12 +61,7 @@ public class FlightReservationTest {
         FlightConfirmationPage flightConfirmationPage = new FlightConfirmationPage(driver);
         Assert.assertTrue(flightConfirmationPage.isAt());
         String flightPrice = flightConfirmationPage.getFlightDetails();
-        Assert.assertEquals(flightPrice, expectedPrice);
-    }
-
-    @AfterTest
-    public void closeDriver() {
-        driver.quit();
+        Assert.assertEquals(flightPrice, testData.parameters().expectedPrice());
     }
 
 }
