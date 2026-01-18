@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="User-Sam">
+        <parameter name="testDataPath" value="data/vendor-portal/sam.json"/>
+        <classes>
+            <class name="com.jaga.test.vendorportal.VendorPortalTest"/>
+        </classes>
+    </test>
+    <test name="Passenger Count 2">
+        <parameter name="testDataPath" value="data/flight-reservation/passenger-2.json"/>
+        <classes>
+            <class name="com.jaga.test.flightreservation.FlightReservationTest"/>
+        </classes>
+    </test>
+</suite>

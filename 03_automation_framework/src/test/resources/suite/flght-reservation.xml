@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Flight Reservation Suite">
+<suite name="Flight Reservation Suite" parallel="tests">
     <test name="Passenger Count 1">
         <parameter name="testDataPath" value="data/flight-reservation/passenger-1.json"/>
         <classes>

@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Vendor Portal Suite">
+<suite name="Vendor Portal Suite" parallel="tests">
     <test name="User-Sam">
         <parameter name="testDataPath" value="data/vendor-portal/sam.json"/>
         <classes>
