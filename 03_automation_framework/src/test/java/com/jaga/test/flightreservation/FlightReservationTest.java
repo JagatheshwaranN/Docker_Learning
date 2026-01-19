@@ -3,6 +3,8 @@ package com.jaga.test.flightreservation;
 import com.jaga.test.AbstractTest;
 import com.jaga.pages.flightreservation.*;
 import com.jaga.test.flightreservation.model.FlightReservationTestData;
+import com.jaga.util.ConfigUtil;
+import com.jaga.util.Constants;
 import com.jaga.util.JsonUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -22,7 +24,7 @@ public class FlightReservationTest extends AbstractTest {
     @Test
     public void userRegistrationTest() {
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.goTo(testData.application().url());
+        registrationPage.goTo(ConfigUtil.get(Constants.FLIGHT_RESERVATION_URL));
         Assert.assertTrue(registrationPage.isAt());
         registrationPage.enterUserDetails(testData.userRegistration().firstName(), testData.userRegistration().lastName());
         registrationPage.enterUserCredentials(testData.userRegistration().email(), testData.userRegistration().password());

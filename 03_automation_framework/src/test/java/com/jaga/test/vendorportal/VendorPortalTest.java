@@ -4,6 +4,8 @@ import com.jaga.test.AbstractTest;
 import com.jaga.pages.vendorportal.DashboardPage;
 import com.jaga.pages.vendorportal.LoginPage;
 import com.jaga.test.vendorportal.model.VendorPortalTestData;
+import com.jaga.util.ConfigUtil;
+import com.jaga.util.Constants;
 import com.jaga.util.JsonUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -26,7 +28,7 @@ public class VendorPortalTest extends AbstractTest {
 
     @Test
     public void loginTest() {
-        loginPage.goTo("https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/vendor-app/index.html");
+        loginPage.goTo(ConfigUtil.get(Constants.VENDOR_PORTAL_URL));
         Assert.assertTrue(loginPage.isAt());
         loginPage.login(testData.username(), testData.password());
     }
