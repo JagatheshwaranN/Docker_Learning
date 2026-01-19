@@ -1,5 +1,6 @@
 package com.jaga.test;
 
+import com.jaga.listener.TestListener;
 import com.jaga.util.ConfigUtil;
 import com.jaga.util.Constants;
 import org.openqa.selenium.Capabilities;
@@ -10,13 +11,16 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 
+@Listeners({TestListener.class})
 public abstract class AbstractTest {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractTest.class);
@@ -29,10 +33,11 @@ public abstract class AbstractTest {
     }
 
     @BeforeTest
-    public void setDriver() {
+    public void setDriver(ITestContext context) {
         this.driver = Boolean.parseBoolean(ConfigUtil.get(Constants.SELENIUM_GRID_ENABLED))
                 ? getRemoteDriver() : getLocalDriver();
         driver.manage().window().maximize();
+        context.setAttribute(Constants.DRIVER, this.driver);
     }
 
     public WebDriver getLocalDriver() {
