@@ -77,7 +77,7 @@
                         <selenium.grid.enabled>false</selenium.grid.enabled>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <file>test-suite.xml</file>
+                        <file>src/test/resources/suite/test-suite.xml</file>
                     </suiteXmlFiles>
                     <threadCount>1</threadCount>
                     <reportsDirectory>target/test-output</reportsDirectory>
@@ -137,6 +137,12 @@
                                 <resource>
                                     <directory>src/test/resources</directory>
                                 </resource>
+<!--                                <resource>-->
+<!--                                    <directory>.</directory>-->
+<!--                                    <includes>-->
+<!--                                        <include>test.txt</include>-->
+<!--                                    </includes>-->
+<!--                                </resource>-->
                             </resources>
                         </configuration>
                     </execution>
