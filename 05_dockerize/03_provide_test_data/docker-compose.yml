@@ -54,3 +54,4 @@ services:
       - TEST_SUITE=vendor-portal.xml
     volumes:
       - ./output/vendor-portal:/home/selenium-docker/test-output
+      - ./test-data/mike.json:/home/selenium-docker/data/vendor-portal/mike.json

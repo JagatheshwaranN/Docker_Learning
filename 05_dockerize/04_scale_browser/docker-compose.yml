@@ -1,0 +1,21 @@
+services:
+  selenium-tests-fr:
+    image: jagadocker/selenium
+    container_name: selenium-tests-fr
+    environment:
+      - BROWSER=${BROWSER}
+      - HUB_HOST=hub
+      - THREAD_COUNT=2
+      - TEST_SUITE=flight-reservation.xml
+    volumes:
+      - ./output/flight-reservation:/home/selenium-docker/test-output
+  selenium-tests-vp:
+    image: jagadocker/selenium
+    container_name: selenium-tests-vp
+    environment:
+      - BROWSER=${BROWSER}
+      - HUB_HOST=hub
+      - THREAD_COUNT=2
+      - TEST_SUITE=vendor-portal.xml
+    volumes:
+      - ./output/vendor-portal:/home/selenium-docker/test-output
