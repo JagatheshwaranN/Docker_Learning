@@ -1,7 +1,5 @@
 pipeline {
-
     agent any
-
     stages {
         stage('Build Jar') {
             steps {
@@ -12,26 +10,25 @@ pipeline {
         stage('Create Image') {
             steps {
                 echo 'Building Docker Image...'
-                bat "docker build -t=jagadocker/selenium ."
+                bat "docker build -t=jagatheshwarann/selenium ."
             }
         }
         stage('Deploy Image') {
+            environment{
+                DOCKER_HUB = credentials('Docker')
+            }
             steps {
+                bat 'echo %DOCKER_HUB_PSW% | docker login -u %DOCKER_HUB_USR% --password-stdin'
                 echo 'Pushing Docker Image...'
-                bat "docker push jagadocker/selenium"
+                bat "docker push jagatheshwarann/selenium"
+                bat "docker tag jagatheshwarann/selenium:latest jagatheshwarann/selenium:${env.BUILD_NUMBER}"
+                bat "docker push jagatheshwarann/selenium:${env.BUILD_NUMBER}"
             }
         }
     }
-
     post {
         always {
-            echo 'This will always run after the stages finish.'
-        }
-        success {
-            echo 'This will run only if the pipeline succeeds.'
-        }
-        failure {
-            echo 'This will run only if the pipeline fails.'
+            bat "docker logout"
         }
     }
 }
