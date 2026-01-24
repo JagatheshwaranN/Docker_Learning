@@ -1,0 +1,23 @@
+pipeline {
+
+    agent {
+        docker {
+            image:"alpine:latest"
+        }
+    }
+
+    stages {
+        stage('Access Google') {
+            steps {
+                sh "wget https://www.google.com"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "archiveArtifacts artifacts: 'index.html', followSymlinks: false"
+        }
+    }
+
+}

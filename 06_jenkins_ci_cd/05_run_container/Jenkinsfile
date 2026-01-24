@@ -1,0 +1,37 @@
+pipeline {
+
+    agent any 
+
+    environment {
+        NAME = 'Jaga'
+  
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+              bat "docker run -e NAME=${NAME} jagatheshwarann/welcome:latest"
+            }
+        }
+        stage('Test') {
+            environment {
+                NAME = 'Waran'
+            }
+            steps {
+                bat "docker run -e NAME=${NAME} jagatheshwarann/welcome:latest"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Task Completed!'
+            }
+        }
+    }
+
+    post {
+        always {
+            bat "docker system prune -f"
+        }
+    }
+    
+}

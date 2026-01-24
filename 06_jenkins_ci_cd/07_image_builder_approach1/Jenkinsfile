@@ -1,0 +1,36 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Build Jar') {
+            steps {
+                echo 'Building Project Jar...'
+                bat "mvn clean package -DskipTests"
+            }
+        }
+        stage('Create Image') {
+            steps {
+                echo 'Building Docker Image...'
+                bat "docker build -t=jagatheshwarann/selenium ."
+            }
+        }
+        stage('Deploy Image') {
+            environment{
+                DOCKER_HUB = credentials('Docker')
+            }
+            steps {         
+                echo 'Logging into Docker Hub...'
+                bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
+                echo 'Pushing Docker Image...'
+                bat "docker push jagatheshwarann/selenium"
+            }
+        }
+    }
+    post {
+        always {
+            bat "docker logout"
+        }
+    }
+
+}
