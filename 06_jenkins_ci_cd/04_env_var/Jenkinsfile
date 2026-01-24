@@ -1,0 +1,45 @@
+pipeline {
+
+    agent any 
+
+    environment {
+        APP_NAME = 'my-application'
+  
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Doing mvn clean...'
+                echo 'Doing mvn package...'
+                echo "Application Name is: ${APP_NAME}"
+            }
+        }
+        stage('Test') {
+            environment {
+                APP_NAME = 'staging'
+            }
+            steps {
+                echo 'Building Docker Image...'
+                echo "Application Name in Test stage is: ${APP_NAME}"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Pushing Docker Image...'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the stages finish.'
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds.'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails.'
+        }
+    }
+}

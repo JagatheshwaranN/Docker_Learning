@@ -1,0 +1,35 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Doing mvn clean...'
+                echo 'Doing mvn package...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Building Docker Image...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Pushing Docker Image...'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the stages finish.'
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds.'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails.'
+        }
+    }
+}
