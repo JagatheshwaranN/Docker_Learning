@@ -1,0 +1,37 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Build Jar') {
+            steps {
+                echo 'Building Project Jar...'
+                bat "mvn clean package -DskipTests"
+            }
+        }
+        stage('Create Image') {
+            steps {
+                echo 'Building Docker Image...'
+                bat "docker build -t=jagadocker/selenium ."
+            }
+        }
+        stage('Deploy Image') {
+            steps {
+                echo 'Pushing Docker Image...'
+                bat "docker push jagadocker/selenium"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the stages finish.'
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds.'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails.'
+        }
+    }
+}
